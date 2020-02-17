@@ -6,7 +6,20 @@
     <h1 class="display-4">Welcome</h1>
     <p>复制INS链接到输入框里获取图片</p>
     <div class="row">
-        <input class="form-control col-md-6 offset-3"  type="text" placeholder="...">
-        <button>搜索</button>
+        <input class="form-control col-md-6 offset-3" id="test1" type="text" placeholder="...">
+        <button id="test">搜索</button>
     </div>
 </div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("#test").on('click', function () {
+                var str = "www.baidu.com";
+                var str2 = $(this).html(str);
+                alert(str2);
+            })
+        })
+    </script>
+}
+
