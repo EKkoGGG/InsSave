@@ -1,8 +1,9 @@
-﻿@{
+﻿@model InsSave.Models.InsMedia
+@{
     ViewData["Title"] = "";
 }
 
 <div class="text-center">
     @*<h1 class="display-4">@ViewBag.str</h1>*@
-    <img src="@ViewBag.str" alt="good" />
+    <img src="@Model.PhotoUrl"/>
 </div>

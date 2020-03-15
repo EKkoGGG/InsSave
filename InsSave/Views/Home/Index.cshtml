@@ -2,20 +2,14 @@
     ViewData["Title"] = "";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>复制INS链接到输入框里获取图片</p>
-    <div class="row">
-        @*<input class="form-control col-md-6 offset-3" name="url" type="text" placeholder="...">
-        <a  asp-action="Test" class="btn-dark" style="width:75px">搜索</a>*@
-        <form asp-controller="Home" asp-action="Test">
-            <p>
-                Title: <input type="text" name="url">
+    <div class="text-center">
+        <h1 class="display-4">Welcome</h1>
+        <p>复制INS链接到输入框里获取图片</p>
+        <form asp-controller="Home" asp-action="GetPhoto">
+                <input class="col-md-10 col-sm-10 col-10" type="text" name="url">
                 <input type="submit" value="搜索" />
-            </p>
         </form>
     </div>
-</div>
 
 @section scripts{
     <script>

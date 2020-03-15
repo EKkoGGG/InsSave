@@ -5,6 +5,7 @@ using InsSave.Models;
 using AngleSharp.Html.Parser;
 using System.Net.Http;
 using AngleSharp.Html.Dom;
+using InsSave.Models;
 
 namespace InsSave.Controllers
 {
@@ -12,18 +13,18 @@ namespace InsSave.Controllers
     {
 
         [HttpPost]
-        public IActionResult Test(string url)
+        public IActionResult GetPhoto(string url)
         {
+            var insMedia = new InsMedia();
             using (var client = new HttpClient())
             {
                 //string Url = "https://www.instagram.com/p/B7PzQc_HYtO/?utm_source=ig_web_copy_link";
                 var source = client.GetStringAsync(url).Result;
                 var parser = new HtmlParser();
                 var document = parser.ParseDocument(source);
-                var s1 = document.All[37] as IHtmlMetaElement;
-                ViewBag.str = s1.Content;
-
-                return View();
+                var photoUrl = document.All[37] as IHtmlMetaElement;
+                insMedia.PhotoUrl = photoUrl.Content;
+                return View(insMedia);
             }
         }
 
