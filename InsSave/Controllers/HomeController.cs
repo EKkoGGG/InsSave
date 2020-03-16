@@ -5,7 +5,10 @@ using InsSave.Models;
 using AngleSharp.Html.Parser;
 using System.Net.Http;
 using AngleSharp.Html.Dom;
-using InsSave.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Converters;//IsoDateTimeConverter
+using System.Linq;
 
 namespace InsSave.Controllers
 {
@@ -16,14 +19,23 @@ namespace InsSave.Controllers
         public IActionResult GetPhoto(string url)
         {
             var insMedia = new InsMedia();
+            string scriptFlag = "window._sharedData";
             using (var client = new HttpClient())
             {
-                //string Url = "https://www.instagram.com/p/B7PzQc_HYtO/?utm_source=ig_web_copy_link";
                 var source = client.GetStringAsync(url).Result;
                 var parser = new HtmlParser();
                 var document = parser.ParseDocument(source);
-                var photoUrl = document.All[37] as IHtmlMetaElement;
-                insMedia.PhotoUrl = photoUrl.Content;
+                string photoJsonStr = string.Empty;
+                var mathScript = document.Scripts.Where(t => t.Text.Contains(scriptFlag) && t.Text.Substring(0, 18) == scriptFlag).First();
+                if (mathScript != null)
+                {
+                    photoJsonStr = mathScript.Text.Substring(21);
+                    photoJsonStr = photoJsonStr.Remove(photoJsonStr.Length - 1);
+                }
+                var photoJson = JObject.Parse(photoJsonStr);
+                insMedia.PhotoUrls =
+                (from p in photoJson["entry_data"]["PostPage"][0]["graphql"]["shortcode_media"]["edge_sidecar_to_children"]["edges"]
+                select (string)p["node"]["display_url"]).ToList();
                 return View(insMedia);
             }
         }

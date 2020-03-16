@@ -1,9 +1,10 @@
 ﻿
+using System.Collections.Generic;
 
 namespace InsSave.Models
 {
     public class InsMedia
     {
-        public string PhotoUrl { get; set; }
+        public List<string> PhotoUrls { get; set; }
     }
 }
