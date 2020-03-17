@@ -5,9 +5,9 @@
     <div class="text-center">
         <h1 class="display-4 m-3">Welcome</h1>
         <p>复制INS链接到输入框里获取图片</p>
-        <form class="m-2" asp-controller="Home" asp-action="GetPhoto">
-                <input class="col-md-7 col-sm-7 col-7" type="text" name="url">
-                <input type="submit" value="搜索" />
+        <form class="m-2" asp-controller="Home" asp-action="GetMedia">
+                <input class="col-md-7 col-sm-7 col-7 input-group-lg" type="url" name="url" required="required">
+                <input type="submit" value="搜索"/>
         </form>
     </div>
 

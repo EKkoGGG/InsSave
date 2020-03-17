@@ -1,0 +1,22 @@
+﻿@model InsSave.Models.InsMedia
+
+@{
+    ViewData["Title"] = "";
+}
+
+    <div class="text-center">
+        @if (Model.PhotoUrls.Count > 0)
+        {
+            foreach (var item in Model.PhotoUrls)
+            {
+                <img src="@item" class="img-ins" />
+            }
+        }
+        @if (Model.VideoUrls.Count > 0)
+        {
+            foreach (var item in Model.VideoUrls)
+            {
+                <video src="@item" class="video-ins" controls="controls"></video>
+            }
+        }
+    </div>
