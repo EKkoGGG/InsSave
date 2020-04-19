@@ -25,9 +25,9 @@ namespace InsSave.Controllers
             string scriptFlag = "window._sharedData";
             List<string> photoUrls = new List<string>();
             List<string> videoUrls = new List<string>();
-
             var handler = new SocketsHttpHandler() { UseProxy = true, Proxy = new WebProxy(configuration["Proxy:Host"], Convert.ToInt32(configuration["Proxy:Port"])), UseCookies = false, AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate };
-            using (var client = new HttpClient())
+
+            using (var client = new HttpClient(handler))
             {
                 client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36");
                 var source = client.GetStringAsync(url).Result;
