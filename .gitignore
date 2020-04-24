@@ -5,6 +5,7 @@
 
 # setting files
 appsettings.json
+InsSave/appsettings.Development.json
 
 # User-specific files
 *.rsuser

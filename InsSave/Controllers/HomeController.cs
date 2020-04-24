@@ -11,6 +11,7 @@ using System.Net;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 using System;
+using System.Threading.Tasks;
 
 namespace InsSave.Controllers
 {
@@ -19,7 +20,7 @@ namespace InsSave.Controllers
         public static IConfiguration configuration;
 
         [HttpPost]
-        public IActionResult GetMedia(string url)
+        public async Task<IActionResult> GetMedia(string url)
         {
             var insMedia = new InsMedia();
             string scriptFlag = "window._sharedData";
@@ -30,7 +31,7 @@ namespace InsSave.Controllers
             using (var client = new HttpClient(handler))
             {
                 client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36");
-                var source = client.GetStringAsync(url).Result;
+                var source = await client.GetStringAsync(url);
                 var parser = new HtmlParser();
                 var document = parser.ParseDocument(source);
                 string JsonStr = string.Empty;
